@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathJack | Learn Math Through Blackjack</title>
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css.map">
+    <link rel="stylesheet" href="/public/css/main.css">
+</head>
+<style>
+    .logo-club { background-image: url("/public/img/logo/club.png"); }
+    .logo-minus { background-image: url("/public/img/logo/minus.png"); }
+    .logo-plus { background-image: url("/public/img/logo/plus.png"); }
+    .logo-heart { background-image: url("/public/img/logo/club.png"); }
+
+    .game-table {
+        background-image: url(/public/img/bg.jpg);
+    }
+</style>
+<body>
+<header class="container-fluid py-3" id=""top>
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- MathJack logo on the left -->
+            <div class="col-md-3 d-flex align-items-center">
+                <div class="logo-animated me-2">
+                    <div class="logo-part logo-club"></div>
+                    <div class="logo-part logo-minus"></div>
+                    <div class="logo-part logo-plus"></div>
+                    <div class="logo-part logo-heart"></div>
+                </div>
+                <a href="/index.html" class="logo">Math<span>Jack</span></a>
+            </div>
+
+            <!-- Navigation links in the middle -->
+            <div class="col-md-6">
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav nav-fill w-100">
+                            <li class="nav-item">
+                                <a class="nav-link hover hover-header fs-4" href="/index.html" id="currentpage">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link hover hover-header fs-4" href="/web/about_us/about_us.html">About us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link hover hover-header fs-4" href="/web/single_game/game.html">Solo Game</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link hover hover-header fs-4" href="/web/multiplayer_game/multiplayer.html">Multiplayer</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link hover hover-header fs-4" href="/web/quiz/quiz.html">Quiz</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Start Playing button on the left -->
+            <div class="col-md-3 text-start">
+                <a href="/web/single_game/game.html" class="px-4 py-2 play-btn">Start Playing</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Learn Math Through the Excitement of Blackjack</h1>
+        <p>MathJack makes learning statistics and probability fun by turning educational concepts into an engaging game of Blackjack. Perfect for children and students of all ages.</p>
+        <a href="/web/about_us/about_us.html" class="btn-hero">Get Started</a>
+    </div>
+</section>
+
+<section class="features" id="features">
+    <h2 class="section-title">Why MathJack?</h2>
+    <div class="cards">
+        <div class="card">
+            <div class="card-img">🧮</div>
+            <div class="card-content">
+                <h3>Learn Statistics</h3>
+                <p class="text-white">Understand probability, expected value, and statistical concepts through hands-on gameplay.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img">🎮</div>
+            <div class="card-content">
+                <h3>Game-Based Learning</h3>
+                <p class="text-white">Make learning fun with an engaging Blackjack game that teaches while students play.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img">📊</div>
+            <div class="card-content">
+                <h3>Track Progress</h3>
+                <p class="text-white">Monitor learning with detailed analytics that show improvement in mathematical skills over time.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="how-it-works" id="how-it-works">
+    <h2 class="section-title">How MathJack Works</h2>
+    <div class="steps">
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="text-white">
+            <h3>Start Playing</h3>
+            <p>Jump into a game of Blackjack designed specifically for educational purposes.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="text-white">
+            <h3>Learn Concepts</h3>
+            <p>Each hand teaches probability, statistics, and mental math through interactive play.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="text-white">
+            <h3>Master Skills</h3>
+            <p>Progress through difficulty levels as mathematical understanding improves.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+    <h2 class="section-title">What Educators Say</h2>
+    <div class="testimonial text-white">
+        <p>"MathJack has transformed my classroom. Students who struggled with statistics are now eager to learn through the game."</p>
+        <p class="testimonial-author">- Mrs. Johnson, 7th Grade Math Teacher</p>
+    </div>
+    <div class="testimonial text-white">
+        <p>"The way MathJack teaches probability through actual gameplay makes abstract concepts concrete for my students."</p>
+        <p class="testimonial-author">- Mr. Rodriguez, High School Statistics</p>
+    </div>
+</section>
+
+<section class="cta text-white">
+    <h2>Ready to Make Math Fun?</h2>
+    <p>Join thousands of students already learning with MathJack.</p>
+    <a href="/web/multiplayer_game/multiplayer.html" class="play-btn">Start Playing Multiplayer</a>
+</section>
+
+<section class="game-preview-section" id="game-preview">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10" data-aos="fade-up">
+                <div class="game-preview-heading text-center text-white mb-4">
+                    <h2>Try a Sample Hand</h2>
+                    <p class="mt-2">Experience how MathJack teaches math concepts through gameplay</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-10" data-aos="fade-right">
+                <div class="game-preview-box">
+                    <div class="game-table mx-auto">
+                        <!-- Instructor's Hand -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h3 class="text-center mb-3 text-light">Instructor's Hand</h3>
+                                <div class="game-card-display justify-content-center">
+                                    <div class="playing-card heart"
+                                         data-bs-toggle="popover"
+                                         data-bs-trigger="hover"
+                                         data-bs-placement="top"
+                                         data-bs-content="Ace can be worth 1 or 11 points. This introduces the concept of conditional values in mathematics!">
+                                        √121
+                                        <span class="suit">♥</span>
+                                        <div class="math-explanation">
+                                            √121 = 11
+                                        </div>
+                                    </div>
+                                    <div class="hidden-card"
+                                         data-bs-toggle="popover"
+                                         data-bs-trigger="hover"
+                                         data-bs-placement="top"
+                                         data-bs-content="Can you predict the probability of what this card might be?">
+                                        <div class="card-inner">
+                                            <div class="card-front"></div>
+                                            <div class="card-back heart">
+                                                5×2
+                                                <span class="suit">♦</span>
+                                                <div class="math-explanation">
+                                                    5×2 = 10
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Student's Hand -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h3 class="text-center mb-3 text-light">Your Hand</h3>
+                                <div class="game-card-display justify-content-center">
+                                    <div class="playing-card spade"
+                                         data-bs-toggle="popover"
+                                         data-bs-trigger="hover"
+                                         data-bs-placement="top"
+                                         data-bs-content="Square root teaches us about perfect squares and inverse operations!">
+                                        √36
+                                        <span class="suit">♠</span>
+                                        <div class="math-explanation">
+                                            √36 = 6
+                                        </div>
+                                    </div>
+                                    <div class="playing-card diamond"
+                                         data-bs-toggle="popover"
+                                         data-bs-trigger="hover"
+                                         data-bs-placement="top"
+                                         data-bs-content="Division teaches us about fractions and inverse multiplication.">
+                                        14÷2
+                                        <span class="suit">♦</span>
+                                        <div class="math-explanation">
+                                            14÷2 = 7
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Decision Points -->
+                        <div class="row mb-4">
+                            <div class="col-12 text-center">
+                                <div class="decision-math text-light p-3 rounded" style="background-color: rgba(0,0,0,0.5);">
+                                    <h4>Mathematical Decision Point</h4>
+                                    <p>You have √36 + 14÷2 = 6 + 7 = 13</p>
+                                    <p>The dealer shows √121−10 = 1 (Ace)</p>
+                                    <p class="mt-3"><strong>What's the mathematical probability of success if you hit?</strong></p>
+                                    <ul class="text-start" style="display: inline-block;">
+                                        <li>Cards that would make you bust (>21): Any card worth 9 or more</li>
+                                        <li>Probability calculation: 16 cards out of 52 are worth 9 or more</li>
+                                        <li>Bust probability: ≈ 30.8%</li>
+                                        <li>Safe probability: ≈ 69.2%</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-10 mt-4" data-aos="fade-left">
+                <div class="game-info-box text-white p-4 rounded" style="background-color: rgba(0,0,0,0.5);">
+                    <h3 class="text-center mb-3">How MathJack Teaches Math</h3>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="math-concept">
+                                <h4><i class="bi bi-calculator"></i> Mental Math</h4>
+                                <p>Calculate card values using arithmetic operations (addition, subtraction, multiplication, division)</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="math-concept">
+                                <h4><i class="bi bi-percent"></i> Probability</h4>
+                                <p>Learn to calculate odds of drawing specific cards and making optimal decisions</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="math-concept">
+                                <h4><i class="bi bi-graph-up"></i> Statistics</h4>
+                                <p>Track performance over time and understand expected value calculations</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <a href="/web/multiplayer_game/multiplayer.html" class="play-btn mt-3">Start Playing For Real</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <audio id="backgroundMusic" loop autoplay>
+        <source src="/public/sound/mathJack_music.mp3" type="audio/mp3" />
+        Your browser does not support the audio element
+    </audio>
+</section>
+
+<footer>
+    <a href="#top" class="logo">Math<span>Jack</span></a>
+    <div class="footer-links">
+        <a href="/web/about_us/about_us.html">About Us</a>
+        <a href="/web/single_game/game.html">Solo Game</a>
+        <a href="/web/multiplayer_game/multiplayer.html">Multiplayer</a>
+        <a href="/web/quiz/quiz.html">Quiz</a>
+    </div>
+    <p>&copy; 2025 MathJack. All rights reserved.</p>
+</footer>
+<script src="public/js/animation_bg.js"></script>
+<script src="/public/js/font.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl)
+        })
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const audio = document.getElementById("backgroundMusic");
+        
+        // Set initial volume lower for better user experience
+        audio.volume = 0.05;
+
+        // Try to play audio automatically
+        const playPromise = audio.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.catch(function(error) {
+                console.log("Autoplay prevented:", error);
+                
+                // Add a play button if autoplay is blocked
+                const playButton = document.createElement('button');
+                playButton.className = 'play-btn';
+                playButton.textContent = '🎵 Play Music';
+                playButton.style.position = 'fixed';
+                playButton.style.bottom = '20px';
+                playButton.style.right = '20px';
+                playButton.style.zIndex = '1000';
+                
+                playButton.onclick = function() {
+                    audio.play();
+                    playButton.remove();
+                };
+                
+                document.body.appendChild(playButton);
+            });
+        }
+    });
+</script>
+</body>
+</html>

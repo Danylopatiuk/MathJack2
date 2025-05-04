@@ -1,0 +1,660 @@
+:root {
+    --primary: #084C61;
+    --secondary: #B8B42D;
+    --dark: #111827;
+    --light: #F9FAFB;
+    --accent: #F59E0B;
+    --table-green: #0a6e1c;
+}
+
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "video", sans-serif;
+}
+
+body {
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    color: var(--light);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Utility classes */
+.text-white {
+    color: white;
+}
+
+/* Floating math symbols */
+.math-symbol {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 2rem;
+    font-weight: bold;
+    animation: float 20s linear infinite;
+    z-index: -1;
+    font-family: "quokka", sans-serif;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(var(--move-x, 100px), var(--move-y, 100px)) rotate(var(--rotate, 360deg));
+        opacity: 0;
+    }
+}
+
+/* Header and navigation */
+header {
+    padding: 1.5rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.text-header {
+    font-size: 15px;
+    color: var(--light);
+}
+
+.hover-header {
+    display: inline-block;
+    transition: all 0.5s ease;
+}
+
+.hover-header:hover {
+    transform: translateY(-5px);
+}
+
+.navbar-nav {
+    position: relative;
+    right: 0;
+}
+
+.nav-item {
+    text-align: center;
+    font-size: 20px;
+}
+
+.nav-link {
+    white-space: nowrap;
+    padding: 0.5rem 1rem !important;
+}
+
+/* Logo styling */
+.logo {
+    font-size: 4rem;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    font-family: "quokka", sans-serif;
+}
+
+.logo span {
+    color: var(--accent);
+    font-family: "quokka", sans-serif;
+}
+
+.logo-animated {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.logo-part {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-part:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Buttons */
+.play-btn {
+    border: 2px solid var(--accent);
+    background-color: var(--accent);
+    color: var(--light);
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.play-btn:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+    background-color: var(--accent);
+    color: var(--primary);
+}
+
+.btn-hero {
+    border: 3px solid var(--accent);
+    color: var(--accent);
+    background-color: var(--primary);
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-size: 30px;
+    text-decoration: none;
+}
+
+.btn-hero:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+    background-color: var(--accent);
+    color: var(--light);
+}
+
+/* Hero section */
+.hero {
+    padding: 8rem 2rem;
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+/* Section styling */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--light);
+}
+
+/* Features section */
+.features {
+    padding: 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    border: 4px solid #fff;
+    width: 300px;
+    padding: 25px;
+    text-align: center;
+    position: relative;
+    transform: scale(1);
+    transition: transform 0.2s;
+    background-color: var(--accent) !important;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    clip-path: polygon(
+        0 16px, 16px 16px, 16px 0,
+        calc(100% - 16px) 0, calc(100% - 16px) 16px, 100% 16px,
+        100% calc(100% - 16px), calc(100% - 16px) calc(100% - 16px), calc(100% - 16px) 100%,
+        16px 100%, 16px calc(100% - 16px), 0 calc(100% - 16px)
+    );
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 20px 25px rgba(0,0,0,0.1);
+}
+
+.card-img {
+    font-size: 50px;
+    margin: 10px auto 20px;
+    background-color: var(--primary);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid white;
+    clip-path: polygon(
+        0 8px, 8px 8px, 8px 0,
+        calc(100% - 8px) 0, calc(100% - 8px) 8px, 100% 8px,
+        100% calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) 100%,
+        8px 100%, 8px calc(100% - 8px), 0 calc(100% - 8px)
+    );
+}
+
+.card-content {
+    padding: 2rem;
+}
+
+.card h3 {
+    font-size: 24px;
+    margin: 10px 0;
+    color: white;
+    text-transform: uppercase;
+}
+
+.card p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+/* How it works section */
+.how-it-works {
+    padding: 5rem 2rem;
+    text-align: center;
+}
+
+.steps {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.step {
+    flex: 1;
+    min-width: 250px;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+}
+
+.step-number {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    line-height: 50px;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Testimonials section */
+.testimonials {
+    padding: 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonial {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: 2rem 0;
+}
+
+.testimonial-author {
+    font-weight: 700;
+    color: var(--accent);
+}
+
+/* Call to action section */
+.cta {
+    padding: 5rem 2rem;
+    text-align: center;
+}
+
+.cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Footer */
+footer {
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+}
+
+/* Game preview section */
+.game-preview-section {
+    padding: 60px 0;
+}
+
+.game-preview-heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Game Table Styles */
+.game-table {
+    background-position: center;
+    background-size: cover;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.2);
+}
+
+/* Card display */
+.game-card-display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* Playing cards */
+.playing-card {
+    position: relative;
+    width: 120px;
+    height: 180px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.playing-card:hover {
+    transform: translateY(-10px);
+}
+
+.playing-card .suit {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.8rem;
+}
+
+/* Suit colors */
+.playing-card.heart .suit,
+.playing-card.diamond .suit,
+.heart, 
+.diamond {
+    color: #e74c3c;
+}
+
+.playing-card.spade .suit,
+.playing-card.club .suit,
+.spade, 
+.club {
+    color: #2c3e50;
+}
+
+.math-explanation {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+    padding: 5px;
+    font-size: 0.8rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.playing-card:hover .math-explanation {
+    transform: translateY(0);
+}
+
+/* Hidden card styles - FIXED */
+.hidden-card {
+    position: relative;
+    width: 120px;
+    height: 180px;
+    perspective: 1000px;
+}
+
+.card-inner {
+    position: relative;
+    width: 120px;
+    height: 180px;
+    perspective: 1000px; /* Enables 3D effect */
+}
+
+.card-inner:hover .card-front {
+    transform: rotateY(180deg); /* Flip the front */
+}
+
+.card-inner:hover .card-back {
+    transform: rotateY(0); /* Show the back */
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Hide the back side when flipped */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: transform 0.8s ease; /* Smooth flipping animation */
+}
+
+.card-front {
+    background-color: #f00;
+    color: #fff;
+    transform: rotateY(0); /* Default front-facing */
+}
+
+
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.card-front {
+    background-color: #181212;
+    border-radius: 4px;
+    background-image: linear-gradient(45deg, #aa0000 25%, transparent 25%),
+    linear-gradient(-45deg, #aa0000 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #aa0000 75%),
+    linear-gradient(-45deg, transparent 75%, #aa0000 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+.card-back {
+    background-color: white;
+    transform: rotateY(180deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.decision-math {
+    border: 2px solid #f1c40f;
+}
+
+.math-concept {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: rgba(255,255,255,0.1);
+    height: 100%;
+}
+
+.math-concept h4 {
+    color: #f1c40f;
+    font-size: 1.2rem;
+}
+
+/* Additional styles for better card display */
+.card-back.heart, 
+.card-back.diamond {
+    color: #e74c3c;
+}
+
+/* Responsive styles */
+@media (max-width: 991px) {
+    .navbar-nav {
+        flex-direction: column;
+    }
+    
+    .nav-item {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .row.align-items-center {
+        flex-direction: column;
+    }
+
+    .cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .play-btn {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+/* Selection styling */
+::selection {
+    background-color: var(--accent);
+    color: white;
+}
+
+.instructor-card-row {
+    display: flex;
+    gap: 16px;
+}
+
+.card-math-front,
+.card-math-back {
+    width: 80px;
+    height: 120px;
+    border-radius: 10px;
+    font-size: 26px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.card-math-front {
+    background-color: white;
+    color: red;
+    font-family: 'Courier New', monospace;
+    border: 2px solid #ccc;
+}
+
+.card-math-suit {
+    margin-left: 4px;
+    font-size: 24px;
+}
+
+.card-math-hidden {
+    perspective: 1000px;
+}
+
+.card-math-inner {
+    width: 80px;
+    height: 120px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.card-math-front,
+.card-math-back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.card-math-front {
+    background-color: white;
+}
+
+.card-math-back {
+    background: repeating-linear-gradient(
+        45deg,
+        #d00,
+        #d00 10px,
+        #b00 10px,
+        #b00 20px
+    );
+    transform: rotateY(180deg);
+    border: 2px solid #a00;
+}
