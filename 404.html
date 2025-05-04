@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | Page Not Found | MathJack</title>
+    <link rel="stylesheet" href="/common/css/main.css">
+    <link rel="stylesheet" href="/common/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/common/css/bootstrap.min.css.map">
+    <script src="/public/js/bootstrap.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary: #084C61;
+            --secondary: #B8B42D;
+            --dark: #111827;
+            --light: #F9FAFB;
+            --accent: #F59E0B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "video", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .logo-club { background-image: url("/common/img/logo/club.png"); }
+        .logo-minus { background-image: url("/common/img/logo/minus.png"); }
+        .logo-plus { background-image: url("/common/img/logo/plus.png"); }
+        .logo-heart { background-image: url("/common/img/logo/heart.png"); }
+
+        .logo-animated {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .logo-part {
+            width: 40px;
+            height: 40px;
+            background-size: cover;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .logo-part:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            font-family: "quokka", sans-serif;
+        }
+
+        .logo span {
+            color: var(--accent);
+            font-family: "quokka", sans-serif;
+        }
+
+        .hover-header {
+            display: inline-block;
+            transition: all 1s ease;
+        }
+
+        .hover-header:hover {
+            transform: translateY(-5px);
+            transition: all 0.5s ease;
+        }
+
+        .play-btn{
+            border: 2px solid var(--accent);
+            background-color: var(--accent);
+            color: var(--light);
+            padding: 10px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .play-btn:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            background-color: var(--accent);
+            color: var(--primary)
+        }
+
+        /* 404 specific styles */
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            text-align: center;
+            min-height: 70vh;
+        }
+
+        .error-number {
+            font-size: 10rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            position: relative;
+            animation: floatUpDown 4s ease-in-out infinite;
+        }
+
+        .error-text {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .error-card-display {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 3rem auto;
+        }
+
+        .error-card {
+            width: 120px;
+            height: 180px;
+            background-color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            font-weight: bold;
+            border: 2px solid #000;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .error-card:hover {
+            transform: translateY(-10px) rotate(5deg);
+        }
+
+        .error-card:nth-child(2):hover {
+            transform: translateY(-10px);
+        }
+
+        .error-card:nth-child(3):hover {
+            transform: translateY(-10px) rotate(-5deg);
+        }
+
+        .heart, .diamond {
+            color: red;
+        }
+
+        .spade, .club {
+            color: black;
+        }
+
+        .math-symbol {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 2rem;
+            font-weight: bold;
+            animation: float 20s linear infinite;
+            z-index: -1;
+            font-family: "quokka", sans-serif;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translate(var(100px), var(100px)) rotate(var(360deg));
+                opacity: 0;
+            }
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .error-message {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .error-number {
+                font-size: 6rem;
+            }
+
+            .error-text {
+                font-size: 1.5rem;
+            }
+
+            .error-card {
+                width: 80px;
+                height: 120px;
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="error-container">
+    <h1 class="error-number">404</h1>
+    <h2 class="error-text">Page Not Found</h2>
+
+    <div class="error-card-display">
+        <div class="error-card club">4</div>
+        <div class="error-card spade">0</div>
+        <div class="error-card spade">4</div>
+    </div>
+
+    <p class="error-message">
+        Looks like you've drawn a bad hand! The page you're looking for has been shuffled out of our deck.
+    </p>
+
+    <div class="buttons-container">
+        <a href="/index.html" class="play-btn">Back to Home</a>
+    </div>
+</div>
+
+<script src="/public/js/animation_bg.js"></script>
+<script src="/public/js/font.js"></script>
+</body>
+</html>
