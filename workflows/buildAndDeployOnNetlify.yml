@@ -1,0 +1,30 @@
+name: Build and deploy to Netlify
+
+# triggers the workflow when a push is made to the main branch
+on:
+    push:
+        branches: [main]
+
+jobs:
+    # The job (aka runner) "build_and_deploy" will run on an ubuntu-latest machine
+    build_and_deploy:
+        name: Build and deploy
+        runs-on: ubuntu-latest
+        # The job contains four steps that will be executed sequentially
+        steps:
+            # Step 1: Checkout the main branch
+            - name: Checkout main branch
+              uses: actions/checkout@v3
+
+            # Step 2: Deploy the site to Netlify
+            - name: Deploy Site to Netlify
+              uses: nwtgck/actions-netlify@v2.1
+              with:
+                  publish-dir: "./"
+                  production-branch: main
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  deploy-message: "Deploy from GitHub Actions"
+                  production-deploy: true
+              env:
+                  NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+                  NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
