@@ -112,7 +112,7 @@
     .game-pin {
         font-size: 3rem;
         font-weight: bold;
-        color: var(--kahoot-purple);
+        color: rgb(255, 128, 0); 
         background-color: white;
         padding: 0.5rem 2rem;
         border-radius: 10px;
@@ -128,8 +128,8 @@
     }
     
     .player-item {
-        background-color: white;
-        color: var(--kahoot-purple);
+        background-color: rgb(255, 255, 255);
+        color: rgb(255, 128, 0);
         padding: 8px 12px;
         border-radius: 20px;
         font-weight: bold;
@@ -286,14 +286,6 @@
         </div>
         
         <div id="host-controls" class="mt-4">
-            <div class="mb-3">
-                <label for="quiz-select" class="form-label">Select Quiz</label>
-                <select class="form-select" id="quiz-select">
-                    <option value="basic">Basic Arithmetic</option>
-                    <option value="algebra">Algebra</option>
-                    <option value="geometry">Geometry</option>
-                </select>
-            </div>
             <button id="start-quiz-btn" class="play-btn w-100 mb-2">Start Quiz</button>
         </div>
     </div>
@@ -325,8 +317,8 @@
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 
 <script>
-    // Initialize the socket connection (using mock socket for demonstration)
-    const socket = io(); // In a real app, this would connect to your server
+    // Initialize the socket connection
+    const socket = io();
     
     // Room state variables
     let roomPin = '';
@@ -346,7 +338,6 @@
     const playerList = document.getElementById('player-list');
     const playerCountEl = document.getElementById('player-count');
     const startGameBtn = document.getElementById('start-quiz-btn');
-    const quizSelect = document.getElementById('quiz-select');
     
     // Player elements
     const playerNameInput = document.getElementById('player-name');
@@ -373,6 +364,72 @@
         }
     }
     
+    // Socket.IO event handlers
+    socket.on('room-created', ({ roomPin: pin, players: roomPlayers }) => {
+        roomPin = pin;
+        players = roomPlayers;
+        isHost = true;
+        
+        // Update UI
+        displayRoomPin.textContent = roomPin;
+        updatePlayersList(players);
+        
+        // Hide intro and show waiting room
+        roomIntro.style.display = 'none';
+        hostWaitingRoom.style.display = 'block';
+        
+        showNotification('Room created! Share the PIN: ' + roomPin);
+    });
+    
+    socket.on('room-joined', ({ roomPin: pin, players: roomPlayers }) => {
+        roomPin = pin;
+        players = roomPlayers;
+        isHost = false;
+        
+        // Hide intro and show waiting room
+        roomIntro.style.display = 'none';
+        playerWaitingRoom.style.display = 'block';
+        
+        showNotification('Successfully joined the room!');
+    });
+    
+    socket.on('player-joined', ({ players: roomPlayers, newPlayer }) => {
+        players = roomPlayers;
+        
+        // Update UI if host
+        if (isHost) {
+            updatePlayersList(players);
+            showNotification(`${newPlayer.name} joined the game!`);
+        }
+    });
+    
+    socket.on('player-left', ({ players: roomPlayers }) => {
+        players = roomPlayers;
+        
+        // Update UI if host
+        if (isHost) {
+            updatePlayersList(players);
+            showNotification('A player left the game');
+        }
+    });
+    
+    socket.on('game-started', () => {
+        showNotification('The game is starting!');
+        // Implement game start logic here or redirect to game page
+    });
+    
+    socket.on('room-closed', ({ message }) => {
+        showNotification(message || 'The room was closed');
+        // Reset to initial state
+        roomIntro.style.display = 'block';
+        hostWaitingRoom.style.display = 'none';
+        playerWaitingRoom.style.display = 'none';
+    });
+    
+    socket.on('error', ({ message }) => {
+        showNotification(message);
+    });
+    
     // Host events
     createRoomBtn.addEventListener('click', () => {
         const hostName = hostNameInput.value.trim();
@@ -383,31 +440,8 @@
         
         playerName = hostName;
         
-        // Generate a random 6-digit room PIN
-        roomPin = Math.floor(100000 + Math.random() * 900000).toString();
-        
-        // In a real app, this would be sent to the server
-        // For now, we'll simulate it locally
-        isHost = true;
-        players = [{ id: 'host-' + Date.now(), name: hostName, isHost: true }];
-        
-        // Update UI
-        displayRoomPin.textContent = roomPin;
-        updatePlayersList(players);
-        
-        // Hide intro and show waiting room
-        roomIntro.style.display = 'none';
-        hostWaitingRoom.style.display = 'block';
-        
-        // Store room in localStorage for this demo
-        localStorage.setItem('currentRoom', JSON.stringify({
-            roomPin,
-            players,
-            isHost: true,
-            playerName
-        }));
-        
-        showNotification('Room created! Share the PIN: ' + roomPin);
+        // Emit create-room event to server
+        socket.emit('create-room', { hostName });
     });
     
     // Player join event
@@ -427,75 +461,18 @@
         
         playerName = name;
         
-        // In a real app, this would be sent to the server
-        // For now, we'll simulate joining
-        const storedRoom = JSON.parse(localStorage.getItem('currentRoom'));
-        
-        if (!storedRoom || storedRoom.roomPin !== pin) {
-            showNotification('Room not found. Please check the PIN.');
-            return;
-        }
-        
-        // Add player to the room
-        isHost = false;
-        players = storedRoom.players;
-        players.push({ id: 'player-' + Date.now(), name, isHost: false });
-        
-        // Update stored room
-        localStorage.setItem('currentRoom', JSON.stringify({
-            ...storedRoom,
-            players
-        }));
-        
-        // Update UI
-        roomPin = pin;
-        roomIntro.style.display = 'none';
-        playerWaitingRoom.style.display = 'block';
-        
-        showNotification('Successfully joined the room!');
+        // Emit join-room event to server
+        socket.emit('join-room', { roomPin: pin, playerName: name });
     });
     
     // Start game event
     startGameBtn.addEventListener('click', () => {
-        const quizType = quizSelect.value;
+        if (!isHost) return;
         
-        // In a real app, this would be sent to the server
-        showNotification(`Starting ${quizType} quiz!`);
-        
-        // Redirect to game page (you'll need to implement this)
-        // window.location.href = `/game.html?room=${roomPin}&quiz=${quizType}&player=${playerName}`;
-        
-        // For now, just show a message
-        setTimeout(() => {
-            showNotification('Game would start now in a real implementation');
-        }, 1000);
+        // Emit start-game event to server
+        socket.emit('start-game', { roomPin });
     });
-    
-    // Check for existing room on page load
-    window.addEventListener('load', () => {
-        const storedRoom = JSON.parse(localStorage.getItem('currentRoom'));
-        
-        if (storedRoom) {
-            if (storedRoom.isHost) {
-                // Host reconnected
-                roomPin = storedRoom.roomPin;
-                players = storedRoom.players;
-                playerName = storedRoom.playerName;
-                
-                displayRoomPin.textContent = roomPin;
-                updatePlayersList(players);
-                roomIntro.style.display = 'none';
-                hostWaitingRoom.style.display = 'block';
-            } else {
-                // Player reconnected
-                roomPin = storedRoom.roomPin;
-                playerName = storedRoom.playerName;
-                
-                roomIntro.style.display = 'none';
-                playerWaitingRoom.style.display = 'block';
-            }
-        }
-    });
+</script>
 </script>
 
 
