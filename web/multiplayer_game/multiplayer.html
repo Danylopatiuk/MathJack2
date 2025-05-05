@@ -319,335 +319,185 @@
     </div>
     <p>&copy; 2025 MathJack. All rights reserved.</p>
 </footer>
-<script src="public/js/animation_bg.js"></script>
+<script src="/public/js/animation_bg.js"></script>
 <script src="/public/js/font.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 
 <script>
-    // Socket.io setup
-    let socket;
-    try {
-        socket = io('http://localhost:3002');
-    } catch (error) {
-        console.error('Socket.io connection failed:', error);
-        alert('Failed to connect to the game server. Please try again later.');
-    }
+    // Initialize the socket connection (using mock socket for demonstration)
+    const socket = io(); // In a real app, this would connect to your server
     
-    // Game state variables
-    let gamePin = '';
+    // Room state variables
+    let roomPin = '';
     let players = [];
     let isHost = false;
-    let currentQuiz = null;
-    let currentQuestionIndex = 0;
-    let playerScore = 0;
-    let startTime = null;
-    let quizTimeInSeconds = 0;
-    let timerInterval = null;
+    let playerName = '';
     
     // DOM elements
-    const quizIntro = document.getElementById('quiz-intro');
+    const roomIntro = document.getElementById('quiz-intro');
     const hostWaitingRoom = document.getElementById('host-waiting-room');
     const playerWaitingRoom = document.getElementById('player-waiting-room');
-    const quizContainer = document.getElementById('quiz-container');
-    const quizSummary = document.getElementById('quiz-summary');
     
     // Host elements
     const hostNameInput = document.getElementById('host-name');
-    const createGameBtn = document.getElementById('create-game');
-    const displayGamePin = document.getElementById('display-game-pin');
+    const createRoomBtn = document.getElementById('create-game');
+    const displayRoomPin = document.getElementById('display-game-pin');
     const playerList = document.getElementById('player-list');
     const playerCountEl = document.getElementById('player-count');
+    const startGameBtn = document.getElementById('start-quiz-btn');
     const quizSelect = document.getElementById('quiz-select');
-    const startQuizBtn = document.getElementById('start-quiz-btn');
-    const nextQuestionBtn = document.getElementById('next-question-btn');
-    const endQuizBtn = document.getElementById('end-quiz-btn');
-    const hostQuizControls = document.getElementById('host-quiz-controls');
     
     // Player elements
     const playerNameInput = document.getElementById('player-name');
-    const gamePinInput = document.getElementById('game-pin-input');
-    const joinGameBtn = document.getElementById('join-game');
-    const quizTitle = document.getElementById('quiz-title');
-    const quizTimer = document.getElementById('quiz-timer');
-    const currentQuestion = document.getElementById('current-question');
-    const optionsContainer = document.getElementById('options-container');
-    const progressBar = document.getElementById('progress-bar');
-    const questionNumber = document.getElementById('question-number');
-    const currentScoreEl = document.getElementById('current-score');
-    const explanation = document.getElementById('explanation');
-    const explanationText = document.getElementById('explanation-text');
-    const finalScore = document.getElementById('final-score');
-    const correctAnswers = document.getElementById('correct-answers');
-    const timeTaken = document.getElementById('time-taken');
-    const playAgainBtn = document.getElementById('play-again-btn');
+    const roomPinInput = document.getElementById('game-pin-input');
+    const joinRoomBtn = document.getElementById('join-game');
     
-    // Update timer function
-    function updateTimer() {
-        quizTimeInSeconds = Math.floor((Date.now() - startTime) / 1000);
-        const remainingSeconds = currentQuiz.timeLimit - quizTimeInSeconds;
-
-        if (remainingSeconds <= 0) {
-            clearInterval(timerInterval);
-            endQuiz();
-            return;
-        }
-
-        const minutes = Math.floor(remainingSeconds / 60);
-        const seconds = remainingSeconds % 60;
-        quizTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    // Show notification function
+    function showNotification(message, duration = 3000) {
+        alert(message); // Simple alert for now - replace with a proper notification UI
     }
     
-    // Generate random game PIN
-    function generateGamePin() {
-        return Math.floor(100000 + Math.random() * 900000).toString();
-    }
-    
-    // Socket.io Event Handlers
-    
-    // Host events
-    createGameBtn.addEventListener('click', () => {
-        const hostName = hostNameInput.value.trim();
-        if (!hostName) {
-            alert('Please enter your name');
-            return;
-        }
-        
-        // Generate a random game PIN
-        const newGamePin = generateGamePin();
-        
-        socket.emit('create-game', { hostName, gamePin: newGamePin });
-        isHost = true;
-    });
-    
-    socket.on('game-created', ({ gamePin: pin }) => {
-        gamePin = pin;
-        displayGamePin.textContent = pin;
-        
-        // Hide intro and show waiting room
-        quizIntro.style.display = 'none';
-        hostWaitingRoom.style.display = 'block';
-    });
-    
-    socket.on('player-joined', ({ players: playersList }) => {
-        players = playersList;
-        updatePlayersList();
-    });
-    
-    function updatePlayersList() {
+    // Update player list function
+    function updatePlayersList(playersList) {
         playerList.innerHTML = '';
-        players.forEach(player => {
+        playersList.forEach(player => {
             const playerItem = document.createElement('div');
             playerItem.className = 'player-item';
-            playerItem.textContent = player.name;
+            playerItem.textContent = player.name + (player.isHost ? ' (Host)' : '');
             playerList.appendChild(playerItem);
         });
         
         if (playerCountEl) {
-            playerCountEl.textContent = players.length;
+            playerCountEl.textContent = playersList.length;
         }
     }
     
-    // Player events
-    joinGameBtn.addEventListener('click', () => {
-        const playerName = playerNameInput.value.trim();
-        const pin = gamePinInput.value.trim();
+    // Host events
+    createRoomBtn.addEventListener('click', () => {
+        const hostName = hostNameInput.value.trim();
+        if (!hostName) {
+            showNotification('Please enter your name');
+            return;
+        }
         
-        if (!playerName) {
-            alert('Please enter your name');
+        playerName = hostName;
+        
+        // Generate a random 6-digit room PIN
+        roomPin = Math.floor(100000 + Math.random() * 900000).toString();
+        
+        // In a real app, this would be sent to the server
+        // For now, we'll simulate it locally
+        isHost = true;
+        players = [{ id: 'host-' + Date.now(), name: hostName, isHost: true }];
+        
+        // Update UI
+        displayRoomPin.textContent = roomPin;
+        updatePlayersList(players);
+        
+        // Hide intro and show waiting room
+        roomIntro.style.display = 'none';
+        hostWaitingRoom.style.display = 'block';
+        
+        // Store room in localStorage for this demo
+        localStorage.setItem('currentRoom', JSON.stringify({
+            roomPin,
+            players,
+            isHost: true,
+            playerName
+        }));
+        
+        showNotification('Room created! Share the PIN: ' + roomPin);
+    });
+    
+    // Player join event
+    joinRoomBtn.addEventListener('click', () => {
+        const name = playerNameInput.value.trim();
+        const pin = roomPinInput.value.trim();
+        
+        if (!name) {
+            showNotification('Please enter your name');
             return;
         }
         
         if (!pin) {
-            alert('Please enter a game PIN');
+            showNotification('Please enter a room PIN');
             return;
         }
         
-        socket.emit('join-game', { playerName, gamePin: pin });
-    });
-    
-    socket.on('joined-game', () => {
-        quizIntro.style.display = 'none';
-        playerWaitingRoom.style.display = 'block';
-    });
-    
-    socket.on('join-failed', ({ message }) => {
-        alert(message || 'Failed to join the game. Please check the game PIN.');
-    });
-    
-    // Quiz events
-    startQuizBtn.addEventListener('click', () => {
-        if (players.length === 0) {
-            alert('No players have joined yet!');
+        playerName = name;
+        
+        // In a real app, this would be sent to the server
+        // For now, we'll simulate joining
+        const storedRoom = JSON.parse(localStorage.getItem('currentRoom'));
+        
+        if (!storedRoom || storedRoom.roomPin !== pin) {
+            showNotification('Room not found. Please check the PIN.');
             return;
         }
         
-        const quizType = quizSelect.value;
-        socket.emit('start-quiz', { gamePin, quizType });
-    });
-    
-    socket.on('quiz-started', ({ quiz }) => {
-        currentQuiz = quiz;
-        currentQuestionIndex = 0;
-        playerScore = 0;
-        startTime = Date.now();
-        
-        if (isHost) {
-            hostWaitingRoom.style.display = 'none';
-            hostQuizControls.style.display = 'block';
-        } else {
-            playerWaitingRoom.style.display = 'none';
-        }
-        
-        quizContainer.style.display = 'block';
-        quizTitle.textContent = quiz.title;
-        
-        // Start the timer
-        timerInterval = setInterval(updateTimer, 1000);
-        
-        // Load the first question
-        loadQuestion(0);
-    });
-    
-    function loadQuestion(index) {
-        const question = currentQuiz.questions[index];
-        currentQuestion.textContent = question.text;
-        
-        // Clear previous options
-        optionsContainer.innerHTML = '';
-        
-        // Add new options
-        question.options.forEach((option, i) => {
-            const optionEl = document.createElement('div');
-            optionEl.className = 'option';
-            optionEl.textContent = option;
-            optionEl.dataset.index = i;
-            optionEl.addEventListener('click', handleOptionClick);
-            optionsContainer.appendChild(optionEl);
-        });
-        
-        // Update progress
-        progressBar.style.width = `${((index + 1) / currentQuiz.questions.length) * 100}%`;
-        questionNumber.textContent = `${index + 1}/${currentQuiz.questions.length}`;
-        
-        // Hide explanation
-        explanation.style.display = 'none';
-    }
-    
-    function handleOptionClick(e) {
-        const selectedIndex = parseInt(e.target.dataset.index);
-        const question = currentQuiz.questions[currentQuestionIndex];
-        const isCorrect = selectedIndex === question.correctIndex;
-        
-        // Disable all options
-        document.querySelectorAll('.option').forEach(option => {
-            option.classList.add('disabled');
-        });
-        
-        // Mark the selected option
-        e.target.classList.add(isCorrect ? 'correct' : 'incorrect');
-        
-        // If incorrect, show the correct answer
-        if (!isCorrect) {
-            document.querySelectorAll('.option')[question.correctIndex].classList.add('correct');
-        }
-        
-        // Update score
-        if (isCorrect) {
-            playerScore += 10;
-            currentScoreEl.textContent = playerScore;
-        }
-        
-        // Show explanation
-        explanationText.textContent = question.explanation || 'No explanation provided.';
-        explanation.style.display = 'block';
-        
-        // If player, send answer to server
-        if (!isHost) {
-            socket.emit('answer-question', { 
-                gamePin, 
-                questionIndex: currentQuestionIndex,
-                selectedIndex,
-                isCorrect
-            });
-        }
-    }
-    
-    nextQuestionBtn.addEventListener('click', () => {
-        if (currentQuestionIndex < currentQuiz.questions.length - 1) {
-            currentQuestionIndex++;
-            loadQuestion(currentQuestionIndex);
-            socket.emit('next-question', { gamePin, questionIndex: currentQuestionIndex });
-        } else {
-            endQuiz();
-        }
-    });
-    
-    socket.on('load-next-question', ({ questionIndex }) => {
-        currentQuestionIndex = questionIndex;
-        loadQuestion(questionIndex);
-    });
-    
-    endQuizBtn.addEventListener('click', () => {
-        endQuiz();
-    });
-    
-    function endQuiz() {
-        clearInterval(timerInterval);
-        
-        // Calculate results
-        const correctCount = document.querySelectorAll('.option.correct').length;
-        const totalTime = Math.floor((Date.now() - startTime) / 1000);
-        const minutes = Math.floor(totalTime / 60);
-        const seconds = totalTime % 60;
-        
-        // Update summary
-        finalScore.textContent = playerScore;
-        correctAnswers.textContent = `${correctCount}/${currentQuiz.questions.length}`;
-        timeTaken.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        
-        // Show summary
-        quizContainer.style.display = 'none';
-        quizSummary.style.display = 'block';
-        
-        // If host, send end quiz event
-        if (isHost) {
-            socket.emit('end-quiz', { gamePin });
-        }
-    }
-    
-    socket.on('quiz-ended', () => {
-        endQuiz();
-    });
-    
-    playAgainBtn.addEventListener('click', () => {
-        quizSummary.style.display = 'none';
-        quizIntro.style.display = 'block';
-        
-        // Reset variables
-        gamePin = '';
-        players = [];
+        // Add player to the room
         isHost = false;
-        currentQuiz = null;
-        currentQuestionIndex = 0;
-        playerScore = 0;
+        players = storedRoom.players;
+        players.push({ id: 'player-' + Date.now(), name, isHost: false });
+        
+        // Update stored room
+        localStorage.setItem('currentRoom', JSON.stringify({
+            ...storedRoom,
+            players
+        }));
         
         // Update UI
-        playerScoreEl = document.getElementById('player-score');
-        if (playerScoreEl) {
-            playerScoreEl.textContent = '0';
+        roomPin = pin;
+        roomIntro.style.display = 'none';
+        playerWaitingRoom.style.display = 'block';
+        
+        showNotification('Successfully joined the room!');
+    });
+    
+    // Start game event
+    startGameBtn.addEventListener('click', () => {
+        const quizType = quizSelect.value;
+        
+        // In a real app, this would be sent to the server
+        showNotification(`Starting ${quizType} quiz!`);
+        
+        // Redirect to game page (you'll need to implement this)
+        // window.location.href = `/game.html?room=${roomPin}&quiz=${quizType}&player=${playerName}`;
+        
+        // For now, just show a message
+        setTimeout(() => {
+            showNotification('Game would start now in a real implementation');
+        }, 1000);
+    });
+    
+    // Check for existing room on page load
+    window.addEventListener('load', () => {
+        const storedRoom = JSON.parse(localStorage.getItem('currentRoom'));
+        
+        if (storedRoom) {
+            if (storedRoom.isHost) {
+                // Host reconnected
+                roomPin = storedRoom.roomPin;
+                players = storedRoom.players;
+                playerName = storedRoom.playerName;
+                
+                displayRoomPin.textContent = roomPin;
+                updatePlayersList(players);
+                roomIntro.style.display = 'none';
+                hostWaitingRoom.style.display = 'block';
+            } else {
+                // Player reconnected
+                roomPin = storedRoom.roomPin;
+                playerName = storedRoom.playerName;
+                
+                roomIntro.style.display = 'none';
+                playerWaitingRoom.style.display = 'block';
+            }
         }
     });
-    
-    // Handle socket disconnection
-    socket.on('disconnect', () => {
-        alert('Disconnected from the game server. Please refresh the page to reconnect.');
-    });
-    
-    // Handle any errors
-    socket.on('error', ({ message }) => {
-        alert(message || 'An error occurred.');
-    });
 </script>
+
+
 </body>
 </html>
