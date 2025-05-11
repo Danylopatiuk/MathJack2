@@ -8,181 +8,8 @@
     <link rel="stylesheet" href="/public/css/bootstrap.min.css.map">
     <link rel="stylesheet" href="/public/css/main.css">
     <link rel="shortcut icon" href="/public/img/logo_math_favicon.png">
+    <link rel="stylesheet" href="/web/multiplayer_game/multiplayer.css">
 </head>
-<style>
-    .logo-club { background-image: url("/public/img/logo/club.png"); }
-    .logo-minus { background-image: url("/public/img/logo/minus.png"); }
-    .logo-plus { background-image: url("/public/img/logo/plus.png"); }
-    .logo-heart { background-image: url("/public/img/logo/club.png"); }
-
-    .game-table {
-        background-image: url(/public/img/bg.jpg);
-
-    }
-    .play-btn {
-        border: 2px solid var(--accent);
-        background-color: var(--accent);
-        color: var(--light);
-        padding: 10px;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        display: inline-block;
-        text-decoration: none;
-    }
-    
-    .play-btn:hover {
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        transform: translateY(-5px);
-        background-color: var(--accent);
-        color: var(--primary);
-    }
-    
-    .text-white {
-        color: white;
-    }
-    
-    .logo {
-        font-size: 4rem;
-        font-weight: 700;
-        color: white;
-        text-decoration: none;
-    }
-    
-    .logo span {
-        color: var(--accent);
-    }
-    
-    .logo-animated {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .logo-part {
-        width: 40px;
-        height: 40px;
-        background-size: cover;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .logo-part:hover {
-        transform: scale(1.2);
-        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
-    }
-    
-    .card {
-        border: 4px solid #fff;
-        width: 100%; 
-        max-width: 800px; 
-        height: 500px; 
-        padding: 25px;
-        text-align: center;
-        position: relative;
-        transform: scale(1);
-        transition: transform 0.2s;
-        background-color: var(--accent) !important;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start; 
-        padding-top: 20px; 
-        align-items: center;
-        box-sizing: border-box;
-        clip-path: polygon(
-                0 16px, 16px 16px, 16px 0,
-                calc(100% - 16px) 0, calc(100% - 16px) 16px, 100% 16px,
-                100% calc(100% - 16px), calc(100% - 16px) calc(100% - 16px), calc(100% - 16px) 100%,
-                16px 100%, 16px calc(100% - 16px), 0 calc(100% - 16px)
-        );
-        font-size: 1.5rem; 
-        line-height: 1.8; 
-    }
-    
-    .card:hover {
-        transform: scale(1.03);
-    }
-    
-    .quiz-container {
-        max-width: 800px;
-        margin: 2rem auto;
-        padding: 2rem;
-        background-color: rgba(0, 0, 0, 0.3);
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    
-    .game-pin {
-        font-size: 3rem;
-        font-weight: bold;
-        color: rgb(255, 128, 0); 
-        background-color: white;
-        padding: 0.5rem 2rem;
-        border-radius: 10px;
-        margin: 1rem 0;
-        display: inline-block;
-    }
-    
-    .player-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 20px;
-    }
-    
-    .player-item {
-        background-color: rgb(255, 255, 255);
-        color: rgb(255, 128, 0);
-        padding: 8px 12px;
-        border-radius: 20px;
-        font-weight: bold;
-    }
-    
-    #host-controls {
-        margin-top: 20px;
-        padding: 15px;
-        background-color: rgba(0,0,0,0.3);
-        border-radius: 10px;
-    }
-    
-    .loader {
-        border: 4px solid rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
-        border-top: 4px solid var(--accent);
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-        margin: 0 auto;
-    }
-    
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    
-    footer {
-        padding: 3rem 2rem;
-        text-align: center;
-    }
-    
-    .footer-links {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        margin: 2rem 0;
-    }
-    
-    .footer-links a {
-        color: white;
-        text-decoration: none;
-    }
-    
-    .footer-links a:hover {
-        color: var(--accent);
-    }
-
-    .form-control {
-        font-size: 22px;
-    }
-    
-</style>
 <body>
 <header class="container-fluid py-3">
     <div class="container">
@@ -241,7 +68,7 @@
                 <div class="card shadow p-4 mb-4">
                     <div>
                     <h3>Host a Game</h3>
-                    <p>Create a quiz room and invite players to join with a game PIN.</p>
+                    <p>Create a room and invite players to join with a game PIN.</p>
                     <div class="mt-3">
                         <div class="mb-3">
                             <label for="host-name" class="form-label">Your Name</label>
@@ -255,7 +82,7 @@
             <div class="col-md-6">
                 <div class="card shadow p-4 mb-4">
                     <h3>Join a Game</h3>
-                    <p>Enter a game PIN to join an existing quiz.</p>
+                    <p>Enter a game PIN to join an existing room.</p>
                     <div class="mt-3">
                         <div class="mb-3">
                             <label for="player-name" class="form-label">Your Name</label>
@@ -286,20 +113,67 @@
         </div>
         
         <div id="host-controls" class="mt-4">
-            <button id="start-quiz-btn" class="play-btn w-100 mb-2">Start Quiz</button>
+            <button id="start-quiz-btn" class="play-btn w-100 mb-2">Start Game</button>
         </div>
     </div>
     
     <!-- Player Waiting Room -->
     <div id="player-waiting-room" class="quiz-container text-center" style="display: none;">
-        <h2>You've Joined the Game!</h2>
-        <p>Waiting for the host to start the quiz...</p>
-        <div class="mt-4">
-            <div class="loader"></div>
-            <p class="mt-3">Get ready for some math challenges!</p>
+        <h2>Waiting for Host to Start the Game</h2>
+        <p>You've joined the room successfully!</p>
+        <p>Please wait for the host to start the game.</p>
+    </div>
+    
+<!-- Game Container -->
+<div id="game-container" class="game-container">
+  
+    <!-- Win Counter and Timer Section -->
+    <div id="win-counter" class="win-counter-section" style="text-align: center; margin-bottom: 20px;">
+      <div class="win-counters" style="display: flex; justify-content: space-around; margin-bottom: 15px;">
+        <!-- <div class="win-counter">
+          <span>Your Wins: </span>
+          <span id="player-wins">0</span>
+        </div>
+        <div class="win-counter">
+          <span>Opponent Wins: </span>
+          <span id="opponent-wins">0</span>
+        </div> -->
+      </div>
+        <div style="display: flex; justify-content: space-around; background-color: rgba(0,0,0,0.1); padding: 10px; border-radius: 10px;">
+            <div>
+                <span style="font-weight: bold; color: #28a745;">You: </span>
+                <span id="player-wins" style="font-size: 30px; font-weight: bold;">0</span> wins
+            </div>
+            <div>
+                <span style="font-weight: bold; color: #dc3545;">Opponent: </span>
+                <span id="opponent-wins" style="font-size: 30px; font-weight: bold;">0</span> wins
+            </div>
         </div>
     </div>
-</div>
+  
+    <!-- Opponent Section -->
+    <div id="opponent-section" class="card-section">
+        <h3 class="section-title">Opponent's Cards:<span id="opponent-score" style="display: none;">0</span></h3>
+      <div id="opponent-cards" class="card-display"></div>
+    </div>
+  
+    <!-- Player Section -->
+    <div id="player-section" class="card-section">
+      <h3 class="section-title">Your Cards: <span id="player-score" style="display: none;">0</span></h3>
+      <div id="player-cards" class="card-display"></div>
+    </div>
+  
+    <!-- Controls Section -->
+    <div class="controls">
+      <button id="hit-btn" class="control-btn hit-btn">Hit</button>
+      <button id="stand-btn" class="control-btn stand-btn">Stand</button>
+      <button id="play-again-btn" class="control-btn play-again-btn" style="display: none;">Play Again</button>
+    </div>
+  
+    <!-- Hint Box -->
+    <div id="math-hint" class="hint-box">Waiting for your turn...</div>
+  </div>
+
 
 <footer>
     <a href="#top" class="logo">Math<span>Jack</span></a>
@@ -315,6 +189,7 @@
 <script src="/public/js/font.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+
 
 <script>
     // Initialize the socket connection
@@ -344,10 +219,6 @@
     const roomPinInput = document.getElementById('game-pin-input');
     const joinRoomBtn = document.getElementById('join-game');
     
-    // Show notification function
-    function showNotification(message, duration = 3000) {
-        alert(message); // Simple alert for now - replace with a proper notification UI
-    }
     
     // Update player list function
     function updatePlayersList(playersList) {
@@ -413,9 +284,357 @@
         }
     });
     
-    socket.on('game-started', () => {
-        showNotification('The game is starting!');
-        // Implement game start logic here or redirect to game page
+    socket.on('game-started', (data) => {
+        console.log('Game started in room:', data.roomPin);
+        
+        // Hide waiting rooms and show game container
+        roomIntro.style.display = 'none';
+        hostWaitingRoom.style.display = 'none';
+        playerWaitingRoom.style.display = 'none';
+        document.getElementById('game-container').style.display = 'block'; // Ensure game container is visible
+        
+        // Make roomPin and socket available globally for the game script
+        window.gameRoomPin = data.roomPin;
+        window.gameSocket = socket;
+        
+        // Make player name available globally
+        window.playerName = playerName;
+        window.isHost = isHost;
+        
+        // Initialize game timer variables
+        window.gameTimerInterval = null;
+        window.timeLeft = 10;
+        
+        // Initialize the game directly with inline script
+        // Game state variables
+        let gameState = {
+            playerCards: [],
+            opponentCards: [],
+            playerScore: 0,
+            opponentScore: 0,
+            playerWins: 0,
+            opponentWins: 0,
+            gameOver: false,
+            currentTurn: null,
+            currentPlayer: socket.id,
+            roomPin: data.roomPin
+        };
+        
+        // Initialize win counters
+        const playerWinsEl = document.getElementById('player-wins');
+        const opponentWinsEl = document.getElementById('opponent-wins');
+        if (playerWinsEl) playerWinsEl.textContent = '0';
+        if (opponentWinsEl) opponentWinsEl.textContent = '0';
+        
+        // Initialize game elements
+        const playerCardsContainer = document.getElementById('player-cards');
+        const opponentCardsContainer = document.getElementById('opponent-cards');
+        const playerScoreDisplay = document.getElementById('player-score');
+        const opponentScoreDisplay = document.getElementById('opponent-score');
+        const hitButton = document.getElementById('hit-btn');
+        const standButton = document.getElementById('stand-btn');
+        const playAgainButton = document.getElementById('play-again-btn');
+        const mathHintBox = document.getElementById('math-hint');
+        const playerSection = document.getElementById('player-section');
+        const opponentSection = document.getElementById('opponent-section');
+        
+        // Add play again button event listener
+        playAgainButton.addEventListener('click', function() {
+            console.log('Play again button clicked');
+            
+            // Reset game state first
+            gameState.playerCards = [];
+            gameState.opponentCards = [];
+            gameState.playerScore = 0;
+            gameState.opponentScore = 0;
+            gameState.gameActive = false;
+            gameState.currentTurn = null;
+            gameState.playerStayed[socket.id] = false;
+            
+            // Clear UI
+            playerCardsContainer.innerHTML = '';
+            opponentCardsContainer.innerHTML = '';
+            playerScoreDisplay.textContent = '0';
+            opponentScoreDisplay.textContent = '0';
+            
+            // Disable button and update hint
+            playAgainButton.disabled = true;
+            playAgainButton.style.display = 'none';
+            mathHintBox.textContent = 'Waiting for opponent to be ready...';
+            mathHintBox.style.color = '#ffc107'; // Yellow for waiting
+            
+            // Tell the server this player wants to play again
+            socket.emit('play-again', { roomPin: gameState.roomPin });
+        });
+        
+        console.log('Game elements:', {
+            hitButton, standButton, playAgainButton, mathHintBox,
+            playerCardsContainer, opponentCardsContainer,
+            playerScoreDisplay, opponentScoreDisplay,
+            playerSection, opponentSection
+        });
+        
+        // Setup event listeners
+        hitButton.addEventListener('click', () => {
+            console.log('Hit button clicked');
+            hitButton.disabled = true;
+            standButton.disabled = true;
+            socket.emit('player-hit', { roomPin: gameState.roomPin });
+        });
+        
+        standButton.addEventListener('click', () => {
+            console.log('Stand button clicked');
+            hitButton.disabled = true;
+            standButton.disabled = true;
+            socket.emit('player-stand', { roomPin: gameState.roomPin });
+        });
+        
+        playAgainButton.addEventListener('click', () => {
+            console.log('Play again button clicked');
+            playAgainButton.style.display = 'none';
+            socket.emit('play-again', { roomPin: gameState.roomPin });
+        });
+        
+        // Socket event handlers for the game
+        socket.on('game-state-update', (data) => {
+            console.log('Game state update received:', data);
+            
+            // Update current turn
+            if (data.currentTurn) {
+                gameState.currentTurn = data.currentTurn;
+                const isMyTurn = data.currentTurn === socket.id;
+                
+                console.log(`Current turn: ${data.currentTurn}, My ID: ${socket.id}, Is my turn: ${isMyTurn}`);
+                
+                if (isMyTurn) {
+                    mathHintBox.textContent = "Your turn: Hit or Stand?";
+                    hitButton.disabled = false;
+                    standButton.disabled = false;
+                    playerSection.classList.add('active-turn');
+                    opponentSection.classList.remove('active-turn');
+                } else {
+                    mathHintBox.textContent = "Opponent's turn...";
+                    hitButton.disabled = true;
+                    standButton.disabled = true;
+                    playerSection.classList.remove('active-turn');
+                    opponentSection.classList.add('active-turn');
+                }
+            }
+            
+            // Update player cards
+            if (data.playerCards && data.playerCards[socket.id]) {
+                const newCards = data.playerCards[socket.id];
+                // Always update cards if they're different or if we have no cards
+                if (!gameState.playerCards || !gameState.playerCards.length || 
+                    JSON.stringify(newCards) !== JSON.stringify(gameState.playerCards)) {
+                    console.log('Updating player cards:', newCards);
+                    gameState.playerCards = newCards;
+                    updatePlayerCards();
+                }
+            }
+            
+            // Update opponent cards
+            if (data.playerCards && data.opponentId && data.playerCards[data.opponentId]) {
+                const newCards = data.playerCards[data.opponentId];
+                // Always update cards if they're different or if we have no cards
+                if (!gameState.opponentCards || !gameState.opponentCards.length || 
+                    JSON.stringify(newCards) !== JSON.stringify(gameState.opponentCards)) {
+                    console.log('Updating opponent cards:', newCards);
+                    gameState.opponentCards = newCards;
+                    updateOpponentCards();
+                }
+            }
+            
+            // Update scores
+            if (data.scores) {
+                if (data.scores[socket.id] !== undefined) {
+                    gameState.playerScore = data.scores[socket.id];
+                    playerScoreDisplay.textContent = gameState.playerScore;
+                }
+                
+                if (data.opponentId && data.scores[data.opponentId] !== undefined) {
+                    gameState.opponentScore = data.scores[data.opponentId];
+                    opponentScoreDisplay.textContent = gameState.opponentScore;
+                }
+            }
+            
+            // Handle game result
+            if (data.result) {
+                mathHintBox.textContent = data.result;
+                gameState.gameOver = true;
+                hitButton.disabled = true;
+                standButton.disabled = true;
+                playAgainButton.style.display = 'inline-block';
+            }
+        });
+        
+        socket.on('your-turn', () => {
+            console.log('Your turn!');
+            mathHintBox.textContent = "Your turn: Hit or Stand?";
+            hitButton.disabled = false;
+            standButton.disabled = false;
+            playerSection.classList.add('active-turn');
+            opponentSection.classList.remove('active-turn');
+        });
+        
+        socket.on('opponent-turn', () => {
+            console.log('Opponent\'s turn!');
+            mathHintBox.textContent = "Opponent's turn...";
+            hitButton.disabled = true;
+            standButton.disabled = true;
+            playerSection.classList.remove('active-turn');
+            opponentSection.classList.add('active-turn');
+        });
+        
+        socket.on('game-over', (data) => {
+            console.log('Game over:', data);
+            mathHintBox.textContent = data.message || "Game over!";
+            gameState.gameOver = true;
+            hitButton.disabled = true;
+            standButton.disabled = true;
+            playAgainButton.style.display = 'inline-block';
+            
+            // Update win counters
+            if (data.winner) {
+                if (data.winner === socket.id) {
+                    // Player won
+                    gameState.playerWins++;
+                    document.getElementById('player-wins').textContent = gameState.playerWins;
+                    // Add visual feedback for the win
+                    document.getElementById('player-wins').parentNode.style.animation = 'pulse 1s';
+                    setTimeout(() => {
+                        document.getElementById('player-wins').parentNode.style.animation = '';
+                    }, 1000);
+                } else {
+                    // Opponent won
+                    gameState.opponentWins++;
+                    document.getElementById('opponent-wins').textContent = gameState.opponentWins;
+                    // Add visual feedback for the win
+                    document.getElementById('opponent-wins').parentNode.style.animation = 'pulse 1s';
+                    setTimeout(() => {
+                        document.getElementById('opponent-wins').parentNode.style.animation = '';
+                    }, 1000);
+                }
+            }
+            
+            // Reveal all opponent cards
+            if (gameState.opponentCards && gameState.opponentCards.length > 0) {
+                console.log('Revealing all opponent cards at game over');
+                gameState.opponentCards.forEach(card => {
+                    if (card) card.hidden = false;
+                });
+                updateOpponentCards();
+                
+                // Also show opponent score
+                const opponentScoreDisplay = document.getElementById('opponent-score');
+                if (opponentScoreDisplay) {
+                    opponentScoreDisplay.style.display = 'inline-block';
+                }
+            }
+        });
+        
+        socket.on('reset-game', () => {
+            console.log('Resetting game - calling handleResetGame from multiplayer_game.js');
+            // Use the consolidated handleResetGame function from multiplayer_game.js
+            if (typeof handleResetGame === 'function') {
+                handleResetGame();
+            } else {
+                console.error('handleResetGame function not found!');
+            }
+        });
+        
+        // Turn timer events
+        socket.on('turn-timer-start', (data) => {
+            console.log('Turn timer started:', data);
+            
+            const timerContainer = document.getElementById('turn-timer-container');
+            const timerValue = document.getElementById('turn-timer-value');
+            const timerLabel = document.getElementById('turn-timer-label');
+            
+            // Show timer only for the current player
+            if (timerContainer && timerValue && timerLabel) {
+                if (data.isYourTurn) {
+                    console.log('Your turn started');
+                } else {
+                    console.log('Opponent turn started');
+                }
+            }
+        });
+
+        // Show play again button
+        playAgainButton.style.display = 'inline-block';
+        // Helper functions
+        function updatePlayerCards() {
+            playerCardsContainer.innerHTML = '';
+            gameState.playerCards.forEach(card => {
+                const cardElement = createCardElement(card, false);
+                playerCardsContainer.appendChild(cardElement);
+            });
+        }
+        
+        function updateOpponentCards() {
+            opponentCardsContainer.innerHTML = '';
+            gameState.opponentCards.forEach(card => {
+                const cardElement = createCardElement(card, card.hidden);
+                opponentCardsContainer.appendChild(cardElement);
+            });
+        }
+        
+        function createCardElement(card, isHidden) {
+            const cardEl = document.createElement('div');
+            cardEl.className = 'game-card';
+            cardEl.style.backgroundColor = 'white';
+            cardEl.style.borderRadius = '10px';
+            cardEl.style.width = '120px';
+            cardEl.style.height = '180px';
+            cardEl.style.margin = '5px';
+            cardEl.style.display = 'flex';
+            cardEl.style.flexDirection = 'column';
+            cardEl.style.justifyContent = 'center';
+            cardEl.style.alignItems = 'center';
+            cardEl.style.position = 'relative';
+            cardEl.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+            
+            // If card is hidden, show back of card
+            if (isHidden) {
+                cardEl.classList.add('card-back_2');
+                return cardEl;
+            }
+            
+            // Get card properties
+            const suit = card.suit || '♠';
+            const displayValue = card.displayValue || '';
+            const value = card.value || '';
+            
+            // Set text color based on suit
+            const textColor = ['♥', '♦'].includes(suit) ? 'red' : 'black';
+            
+            // Create card content
+            const valueText = document.createElement('div');
+            valueText.style.fontSize = displayValue.length > 5 ? '18px' : '24px';
+            valueText.style.color = textColor;
+            valueText.style.textAlign = 'center';
+            valueText.style.padding = '10px';
+            valueText.textContent = displayValue + ' ' + suit;
+            
+            
+            
+            
+            cardEl.appendChild(valueText);
+            
+            return cardEl;
+        }
+        
+        // resetGame function has been moved to handleResetGame in multiplayer_game.js
+        // for better code organization and to avoid duplication
+        
+        // Notify server that player is ready
+        socket.emit('player-ready', {
+            roomPin: data.roomPin,
+            playerName: playerName
+        });
+        
+        console.log('Game initialized with room PIN:', data.roomPin);
     });
     
     socket.on('room-closed', ({ message }) => {
@@ -473,8 +692,53 @@
         socket.emit('start-game', { roomPin });
     });
 </script>
+<script>
+    // Load the multiplayer game script
+    document.addEventListener('DOMContentLoaded', function() {
+        const script = document.createElement('script');
+        script.src = '/web/multiplayer_game/multiplayer_game.js';
+        document.head.appendChild(script);
+    });
+
+    // Notification function
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        // Add styles if they don't exist
+        if (!document.querySelector('#notification-styles')) {
+            const style = document.createElement('style');
+            style.id = 'notification-styles';
+            style.textContent = `
+                .notification {
+                    position: fixed;
+                    top: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: #333;
+                    color: white;
+                    padding: 15px 25px;
+                    border-radius: 5px;
+                    z-index: 1000;
+                    animation: fadeInOut 3s ease-in-out;
+                }
+                @keyframes fadeInOut {
+                    0% { opacity: 0; }
+                    10% { opacity: 1; }
+                    90% { opacity: 1; }
+                    100% { opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Remove notification after animation
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
 </script>
-
-
 </body>
 </html>
