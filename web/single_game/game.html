@@ -75,6 +75,7 @@
 <div class="instruction-modal" id="instruction-modal">
     <div class="instruction-content">
       <h2 style="text-align: center; color: var(--accent); margin-bottom: 1.5rem;">How to Play MathJack</h2>
+      <button onclick="startGame()" class="play-btn">Start Playing!</button>
       
       <div class="instruction-section">
         <h3>Basic Rules</h3>
@@ -104,7 +105,7 @@
       </div>
   
       <div style="text-align: center; margin-top: 2rem;">
-        <button class="play-btn" onclick="closeInstructions()">Start Playing!</button>
+        <button class="play-btn" onclick="startGame()">Start Playing!</button>
       </div>
     </div>
   </div>
@@ -147,7 +148,6 @@
             <button id="deal-btn" class="play-btn">Deal</button>
             <button id="hit-btn" class="play-btn" disabled>Hit</button>
             <button id="stand-btn" class="play-btn" disabled>Stand</button>
-            <button id="double-btn" class="play-btn" disabled>Double Down</button>
           </div>
         </div>
   
@@ -405,6 +405,54 @@
     </div>
     <p>&copy; 2025 MathJack. All rights reserved.</p>
 </footer>
+<audio id="backgroundMusic" loop>
+    <source id="audioSource" type="audio/mp3">
+    Your browser does not support the audio element
+</audio>
+
+<script>
+    // Initialize audio
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    const audioSource = document.getElementById('audioSource');
+    backgroundMusic.volume = 0.2; // Set lower volume
+
+    // Available songs
+    const songs = [
+        '../../public/sound_game/sound1.mp3',
+        '../../public/sound_game/sound2.mp3'
+    ];
+
+    // Pick a random song
+    function pickRandomSong() {
+        const randomIndex = Math.floor(Math.random() * songs.length);
+        return songs[randomIndex];
+    }
+
+    // Try to load and play audio
+    function playBackgroundMusic() {
+        // Set a random song
+        audioSource.src = pickRandomSong();
+        backgroundMusic.load(); // Need to reload after changing source
+
+        // Try to play
+        backgroundMusic.play()
+            .then(() => console.log('Audio started playing'))
+            .catch(error => {
+                console.log('Audio play failed:', error);
+                // Try again in 1 second if failed
+                setTimeout(playBackgroundMusic, 1000);
+            });
+    }
+
+    function startGame() {
+        document.getElementById('instruction-modal').style.display = 'none';
+        playBackgroundMusic();
+        createDeck();
+        updateBalance();
+        updateStats();
+    }
+</script>
+
 <script src="/public/js/animation_bg.js"></script>
 <script src="/public/js/font.js"></script>
 

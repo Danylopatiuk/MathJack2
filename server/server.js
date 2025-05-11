@@ -89,7 +89,7 @@ io.on('connection', (socket) => {
   });
 
   // Start game
-  socket.on('start-game', ({ roomPin }) => {
+  socket.on('start-game', ({ roomPin, startMusic }) => {
     if (!rooms.has(roomPin)) return;
     
     const roomData = rooms.get(roomPin);
@@ -101,9 +101,9 @@ io.on('connection', (socket) => {
     }
     
     // Notify all players in room that game is starting
-    io.to(roomPin).emit('game-started', { roomPin });
+    io.to(roomPin).emit('game-started', { roomPin, startMusic });
     
-    console.log(`Game started in room: ${roomPin}`);
+    console.log(`Game started in room: ${roomPin} with music: ${startMusic}`);
   });
 
   // Handle disconnection

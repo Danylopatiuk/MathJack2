@@ -462,8 +462,8 @@ footer {
 }
 
 .hit-btn {
-    border: 2px solid var(--accent);
-    background-color: var(--accent);
+    border: 2px solid var(--primary);
+    background-color: var(--primary);
     color: var(--light);
     padding: 12px 24px;
     border-radius: 10px;
@@ -476,8 +476,8 @@ footer {
 }
 
 .stand-btn {
-    border: 2px solid var(--accent);
-    background-color: var(--accent);
+    border: 2px solid var(--primary);
+    background-color: var(--primary);
     color: var(--light);
     padding: 12px 24px;
     border-radius: 10px;
@@ -490,8 +490,8 @@ footer {
 }
 
 .play-again-btn {
-    border: 2px solid var(--accent);
-    background-color: var(--accent);
+    border: 2px solid var(--primary);
+    background-color: var(--primary);
     color: var(--light);
     padding: 12px 24px;
     border-radius: 10px;
@@ -503,10 +503,18 @@ footer {
     min-width: 140px;
 }
 
-.hint-box {
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
+/* Hint box styling */
+#math-hint {
+    text-align: center;
+    margin: 20px auto;
+    padding: 15px 30px;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    max-width: 80%;
+    color: var(--light);
+    transition: all 0.3s ease;
+    display: block;
+    position: relative;
+    z-index: 10;
 }

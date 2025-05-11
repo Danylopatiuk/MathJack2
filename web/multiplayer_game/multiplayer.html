@@ -53,10 +53,6 @@
                 </nav>
             </div>
 
-            <!-- Start Playing button on the left -->
-            <div class="col-md-3 text-start">
-                <a href="#" class="px-4 py-2 play-btn">Start Playing</a>
-            </div>
         </div>
     </div>
 </header>
@@ -141,11 +137,11 @@
       </div>
         <div style="display: flex; justify-content: space-around; background-color: rgba(0,0,0,0.1); padding: 10px; border-radius: 10px;">
             <div>
-                <span style="font-weight: bold; color: #28a745;">You: </span>
+                <span style="font-weight: bold; color: #28a745; font-size: 24px;">You: </span>
                 <span id="player-wins" style="font-size: 30px; font-weight: bold;">0</span> wins
             </div>
             <div>
-                <span style="font-weight: bold; color: #dc3545;">Opponent: </span>
+                <span style="font-weight: bold; color: #dc3545; font-size: 24px;">Opponent: </span>
                 <span id="opponent-wins" style="font-size: 30px; font-weight: bold;">0</span> wins
             </div>
         </div>
@@ -200,6 +196,20 @@
     let players = [];
     let isHost = false;
     let playerName = '';
+    
+    // Initialize audio
+    const backgroundMusic = new Audio('../../public/sound_game/sound_multiplayer.mp3');
+    backgroundMusic.loop = true;
+    backgroundMusic.volume = 0.2;
+    
+    // Function to play background music
+    function playBackgroundMusic() {
+        backgroundMusic.play().catch(error => {
+            console.log('Audio play failed:', error);
+            // Try again in 1 second if failed
+            setTimeout(playBackgroundMusic, 1000);
+        });
+    }
     
     // DOM elements
     const roomIntro = document.getElementById('quiz-intro');
@@ -688,10 +698,17 @@
     startGameBtn.addEventListener('click', () => {
         if (!isHost) return;
         
-        // Emit start-game event to server
-        socket.emit('start-game', { roomPin });
+        // Emit start-game event to server with music flag
+        socket.emit('start-game', { roomPin, startMusic: true });
+    });
+
+    // Listen for game start from server
+    socket.on('game-started', () => {
+        // Play music on all connected devices
+        playBackgroundMusic();
     });
 </script>
+
 <script>
     // Load the multiplayer game script
     document.addEventListener('DOMContentLoaded', function() {
