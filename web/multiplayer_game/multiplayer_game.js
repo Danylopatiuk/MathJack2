@@ -500,6 +500,11 @@ function initializeGameElements() {
     if (!playerScoreEl) playerScoreEl = document.getElementById('player-score');
     if (!opponentScoreEl) opponentScoreEl = document.getElementById('opponent-score');
     
+    // Ensure opponent score is hidden when initializing
+    if (opponentScoreEl) {
+        opponentScoreEl.style.display = 'none';
+    }
+    
     // Return true if all elements are found
     return !!(hitButton && standButton && playerCardsEl && opponentCardsEl && 
               playerScoreEl && opponentScoreEl && mathHintEl);
@@ -585,7 +590,10 @@ function handleResetGame() {
     
     // Reset scores display
     if (playerScoreEl) playerScoreEl.textContent = '0';
-    if (opponentScoreEl) opponentScoreEl.textContent = '0';
+    if (opponentScoreEl) {
+        opponentScoreEl.textContent = '0';
+        opponentScoreEl.style.display = 'none';
+    }
 }
     
     // Update hint message
