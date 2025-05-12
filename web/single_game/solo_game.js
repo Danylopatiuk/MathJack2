@@ -222,6 +222,10 @@ dealerScore = 0;
 playerScore = 0;
 gameActive = true;
 
+// Hide scores on new deal
+document.getElementById('player-score').style.display = 'none';
+document.getElementById('dealer-score').style.display = 'none';
+
 // Create new deck if less than 1/4 remains
 if (deck.length < 52 * decksRemaining / 4) {
 createDeck();
@@ -400,6 +404,10 @@ dealerCards.forEach(card => card.hidden = false);
 updateCardDisplays();
 updateScores(true);
 
+// Show scores on the game table
+document.getElementById('player-score').style.display = 'inline';
+document.getElementById('dealer-score').style.display = 'inline';
+
 // Calculate point change
 let pointChange = 0;
 if (result.includes("win") || result.includes("busts")) {
@@ -421,24 +429,22 @@ updateStats();
 addToHistory(result, pointChange);
 
 // Show game result modal
-const resultModal = document.getElementById('game-result-modal');
-const resultTitle = document.getElementById('result-title');
-const resultPlayerCards = document.getElementById('result-player-cards');
-const resultDealerCards = document.getElementById('result-dealer-cards');
-const resultPoints = document.getElementById('result-points');
-const resultTotalPoints = document.getElementById('result-total-points');
+document.getElementById('result-title').textContent = result;
+document.getElementById('result-player-cards').textContent = playerCards.map(c => c.displayValue).join(', ');
+document.getElementById('result-dealer-cards').textContent = dealerCards.map(c => c.displayValue).join(', ');
+document.getElementById('result-player-sum').textContent = calculateScore(playerCards);
+document.getElementById('result-dealer-sum').textContent = calculateScore(dealerCards);
 
-resultTitle.textContent = result;
-resultPlayerCards.textContent = playerCards.map(c => c.displayValue).join(', ');
-resultDealerCards.textContent = dealerCards.map(c => c.displayValue).join(', ');
+const resultPoints = document.getElementById('result-points');
 resultPoints.textContent = pointChange >= 0 ? `+${pointChange}` : pointChange;
 resultPoints.className = pointChange > 0 ? 'points-gain' : 'points-loss';
-resultTotalPoints.textContent = playerBalance;
+document.getElementById('result-total-points').textContent = playerBalance;
 
-resultModal.style.display = 'flex';
+document.getElementById('game-result-modal').style.display = 'flex';
 
 // Enable continue button
 const continueBtn = document.getElementById('continue-btn');
+const resultModal = document.getElementById('game-result-modal');
 continueBtn.onclick = () => {
 resultModal.style.display = 'none';
 dealBtn.disabled = false;
