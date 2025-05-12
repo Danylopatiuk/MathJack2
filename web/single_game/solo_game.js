@@ -410,15 +410,13 @@ document.getElementById('dealer-score').style.display = 'inline';
 
 // Calculate point change
 let pointChange = 0;
-if (result.includes("win") || result.includes("busts")) {
+if ((result.includes("You win") || result.includes("Instructor busts"))) {
 pointChange = 1;
 playerBalance += 1;
 playerWins++;
 } else if (result.includes("Instructor wins")) {
-if (playerBalance > 0) {
-pointChange = -1;
-playerBalance -= 1;
-}
+pointChange = 0;
+// No change to player balance when Instructor wins
 }
 
 gamesPlayed++;
